@@ -1,0 +1,25 @@
+{
+  "name": "LAHM TV",
+  "short_name": "LAHM TV",
+  "description": "LAHM TV — TV en vivo internacional y cine de licencia abierta, instalable en cualquier dispositivo.",
+  "start_url": "./index.html",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "any",
+  "background_color": "#0a0b0d",
+  "theme_color": "#0a0b0d",
+  "icons": [
+    {
+      "src": "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 192 192'%3E%3Crect width='192' height='192' fill='%230a0b0d'/%3E%3Ctext x='96' y='118' font-family='Georgia,serif' font-size='90' font-weight='700' fill='%23d9a441' text-anchor='middle'%3EL%3C/text%3E%3C/svg%3E",
+      "sizes": "192x192",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    },
+    {
+      "src": "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'%3E%3Crect width='512' height='512' fill='%230a0b0d'/%3E%3Ctext x='256' y='320' font-family='Georgia,serif' font-size='240' font-weight='700' fill='%23d9a441' text-anchor='middle'%3EL%3C/text%3E%3C/svg%3E",
+      "sizes": "512x512",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    }
+  ]
+}
