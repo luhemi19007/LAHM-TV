@@ -1,0 +1,12 @@
+{
+  "name": "LAHM TV",
+  "short_name": "LAHM TV",
+  "description": "Películas, series y canales gratuitos legales",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "any",
+  "background_color": "#090d18",
+  "theme_color": "#090d18",
+  "lang": "es"
+}
