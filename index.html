@@ -1,0 +1,103 @@
+if(!Hls.isSupported()) throw new Error("HLS no soportado");
+
+      hlsInstance = new Hls({
+        enableWorker:true,
+        lowLatencyMode:true
+      });
+
+      hlsInstance.loadSource(item.url);
+      hlsInstance.attachMedia(player);
+
+      hlsInstance.on(Hls.Events.MANIFEST_PARSED, () => {
+        player.play().catch(()=>{});
+      });
+
+      hlsInstance.on(Hls.Events.ERROR, (_event,data) => {
+        if(data && data.fatal){
+          playerMessage.textContent =
+            "Esta emisión no pudo reproducirse. Puede estar fuera de línea, tener bloqueo geográfico o no permitir reproducción desde este sitio.";
+        }
+      });
+    }else{
+      player.src = item.url;
+      await player.play().catch(()=>{});
+    }
+  }catch(error){
+    console.error(error);
+    playerMessage.textContent =
+      "No se pudo iniciar esta emisión. Prueba otro canal.";
+  }
+}
+
+function closePlayer(){
+  if(hlsInstance){
+    try{ hlsInstance.destroy(); }catch{}
+    hlsInstance = null;
+  }
+  player.pause();
+  player.removeAttribute("src");
+  player.load();
+  modal.hidden = true;
+}
+
+document.getElementById("filters").addEventListener("click",event=>{
+  const button = event.target.closest("[data-country]");
+  if(!button) return;
+
+  document.querySelectorAll(".filter")
+    .forEach(btn => btn.classList.remove("active"));
+  button.classList.add("active");
+
+  selectedCountry = button.dataset.country;
+  country.value = selectedCountry;
+  render();
+});
+
+country.addEventListener("change",()=>{
+  selectedCountry = country.value;
+  document.querySelectorAll(".filter").forEach(btn=>{
+    btn.classList.toggle("active", btn.dataset.country === selectedCountry);
+  });
+  render();
+});
+
+search.addEventListener("input",render);
+
+function handleCardClick(event){
+  const fav = event.target.closest("[data-fav]");
+  if(fav){
+    toggleFavorite(fav.dataset.fav);
+    return;
+  }
+
+  const button = event.target.closest("[data-id]");
+  if(!button) return;
+
+  const item = content.find(entry => entry.id === button.dataset.id);
+  if(item) openPlayer(item);
+}
+
+grid.addEventListener("click",handleCardClick);
+favoritesGrid.addEventListener("click",handleCardClick);
+document.getElementById("close").addEventListener("click",closePlayer);
+
+modal.addEventListener("click",event=>{
+  if(event.target === modal) closePlayer();
+});
+
+document.addEventListener("keydown",event=>{
+  if(event.key === "Escape" && !modal.hidden) closePlayer();
+});
+
+window.addEventListener("beforeunload",()=>{
+  if(hlsInstance){
+    try{ hlsInstance.destroy(); }catch{}
+  }
+});
+
+document.getElementById("year").textContent = new Date().getFullYear();
+
+loadWorldChannels();
+</script>
+</body>
+</html>
